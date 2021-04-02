@@ -14,7 +14,7 @@ Out-File -FilePath $myLog -InputObject $($myVars + "`r`n" + "`r`n") -Append
 
 #Prepare and get my list of files
 set-location $myWorkDir
-$myPackList = $(Get-Item -Path ".\$($myInstallName)_*.zip").name
+$myPackList = $(Get-Item -Path ".\*.zip").name
 
 
 function Set-PackageStatus($myCurrentPackageName, $myCurrentExitCode, $myVersionDate) {
