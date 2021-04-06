@@ -1,4 +1,4 @@
-# powershell-zipped-archive-installer
+# powershell based (zipped archive installer)
 powershell based - small, flexible and easy to use installer; working out of zipped archives after extracting it
 
 
@@ -14,7 +14,9 @@ At the moment copy to a local source - example: to c:\users\public\*.*
 C:\USERS\PUBLIC\_DNINSTALL
 - 0001-Prepare.zip
 - 0110-MyMSIX-Packages.zip
+  - install.ps1
 - 9001-PublicDesktop.zip
+  - install.ps1
 - **dnInstall.cmd**
 - **dnInstall.ps1**
 
