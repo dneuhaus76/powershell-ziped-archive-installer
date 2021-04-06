@@ -80,4 +80,4 @@ Execute-MyPackages
 Out-File -FilePath $myLog -InputObject $((Get-Date).DateTime + ' -->') -Append
 
 #OpenLog
-.($myLog)
+#.($myLog)
