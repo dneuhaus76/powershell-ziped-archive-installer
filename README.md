@@ -9,7 +9,7 @@ powershell based - small, flexible and easy to use installer; working out of zip
 
 
 ## Filestructure
-At the moment copy to a local source - example: to c:\users\public\*.*
+Best copy to a local source - example: to c:\users\public\*.*
 
 C:\USERS\PUBLIC\_DNINSTALL
 - 0001-Prepare.zip
@@ -22,7 +22,5 @@ C:\USERS\PUBLIC\_DNINSTALL
 
 
 ## How to use (how you should use)
-- copy to a local location (dnInstall.ps1,dnInstall.cmd,xxx.zip) - all to the same locateion see Filestructure
+- copy to a local location (dnInstall.ps1,dnInstall.cmd,xxx.zip) - all to the same location (see Filestructure)
 - run as admin dnInstall.cmd - or Powershell as admin and run the dnInstall.ps1 - File
-
-Enjoy
