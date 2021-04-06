@@ -12,11 +12,11 @@ powershell based - small, flexible and easy to use installer; working out of zip
 At the moment copy to a local source - example: to c:\users\public\*.*
 
 C:\USERS\PUBLIC\_DNINSTALL
-- 0001-Prepare.zip<blue>
+- 0001-Prepare.zip
 - 0110-MyMSIX-Packages.zip
   - install.ps1
 - 9001-PublicDesktop.zip
-  - install.ps1</blue>
+  - install.ps1
 - **dnInstall.cmd**
 - **dnInstall.ps1**
 
