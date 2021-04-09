@@ -20,7 +20,7 @@ $myPackList = $(Get-Item -Path ".\*.zip").name
 
 function Set-PackageStatus($myCurrentPackageName, $myCurrentExitCode, $myVersionDate) {
     $myRegPath="$myRegPackagesPath\$myCurrentPackageName"
-    if (!(Test-Path Registry::$myRegPath)) { New-Item Registry::$myRegPath -Force}
+    if (!(Test-Path Registry::$myRegPath)) { New-Item Registry::$myRegPath -Force | Out-Null }
     Set-ItemProperty -path Registry::$myRegPath -Name "ExitCode" -Type String -Value $myCurrentExitCode -Force | Out-Null
     Set-ItemProperty -path Registry::$myRegPath -Name "VersionDate" -Type String -Value $myVersionDate -Force  | Out-Null
 }
@@ -59,10 +59,11 @@ function Execute-MyPackages {
         
         Expand-Archive $($package) -DestinationPath "$myCurrentPackageDir" -Force
         if (Test-Path "$myCurrentPackageDir\Install.ps1") {
-            $run = .("$myCurrentPackageDir\Install.ps1")
-            Write-Host "Exitcode: $LASTEXITCODE" -ForegroundColor Cyan
-            Out-File -FilePath $myLog -InputObject $($run) -Append
-            Set-PackageStatus $package $LASTEXITCODE $myPackgeVersion
+            #$myRun = .("$myCurrentPackageDir\Install.ps1")
+            $myRun = Start-Process powershell -ArgumentList ("$myCurrentPackageDir\Install.ps1") -NoNewWindow -Wait -PassThru
+            Out-File -FilePath $myLog -InputObject $("Exitcode: " + $myRun.ExitCode) -Append
+            Write-Host "Exitcode:" $myRun.ExitCode -ForegroundColor Cyan
+            Set-PackageStatus $package $myRun.ExitCode $myPackgeVersion
             } else {
             Write-Host ("file not found " + "$myCurrentPackageDir\Install.ps1") -ForegroundColor Yellow
         }
