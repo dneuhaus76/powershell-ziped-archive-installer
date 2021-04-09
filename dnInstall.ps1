@@ -1,20 +1,21 @@
-﻿Set-ExecutionPolicy -Scope LocalMachine -ExecutionPolicy RemoteSigned -Force -ErrorAction SilentlyContinue
+Set-ExecutionPolicy -Scope LocalMachine -ExecutionPolicy RemoteSigned -Force -ErrorAction SilentlyContinue
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force -ErrorAction SilentlyContinue
+set-location $PSScriptRoot
 
 #Set Global Variables
 $Global:myBasename = (Get-Item -Path $MyInvocation.MyCommand.Name).BaseName
 if (!($Global:myBasename)) {$Global:myBasename = 'dummy_myInstall'}
 $myInstallName = "$myBasename"
 $Global:myLog = $("$env:TEMP\$myBasename" + ".log")
-$Global:myWorkDir = $PSScriptRoot
+$Global:myWorkDir = $PWD
 $Global:myRegPackagesPath="HKEY_LOCAL_MACHINE\SOFTWARE\$myInstallName\Packages"
 Out-File -FilePath $myLog -InputObject $('<-- ' + (Get-Date).DateTime + "`r`n")
-$myVars = @(Get-Variable -Name my*)
+$myVars = @(Get-Variable -Name my* | Where {($_.Name -notmatch 'MyInvocation') -and ($_.Name -notmatch 'MyVars')} )
 Out-File -FilePath $myLog -InputObject $($myVars + "`r`n" + "`r`n") -Append
 
 #Prepare and get my list of files
-set-location $myWorkDir
 $myPackList = $(Get-Item -Path ".\*.zip").name
+
 
 
 function Set-PackageStatus($myCurrentPackageName, $myCurrentExitCode, $myVersionDate) {
@@ -80,4 +81,6 @@ Execute-MyPackages
 Out-File -FilePath $myLog -InputObject $((Get-Date).DateTime + ' -->') -Append
 
 #OpenLog
+Write-Host "See more detailled log under: $myLog"
+Read-host
 #.($myLog)
